@@ -6,7 +6,8 @@ export default {
       xsmall: '0.5rem',
       small: '0.625rem',
       medium: '0.75rem',
-      large: '1.125rem',
+      large: '0.875rem',
+      xlarge: '1.125rem',
     },
   },
   colors: {

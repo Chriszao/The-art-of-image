@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -12,19 +12,15 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
 
-  font-family: 'Poppins', sans-serif;
-
-  body, input, button {
-    font: 16px 'Poppins', sans-serif;
-  }
+  ${({ theme }) => css`
+    body {
+      font: 16px 'Poppins', sans-serif;
+      background-color: ${theme.colors.mainBg};
+    }
+  `}
 
   button {
     cursor: pointer;
-  }
-
-  html, body, #root {
-    height: 100%;
-    width: 100%;
   }
 `;
 
