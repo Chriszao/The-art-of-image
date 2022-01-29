@@ -4,6 +4,10 @@ type SubtitleProps = {
   variant: 'subtitle1' | 'subtitle2';
 };
 
+type ImageBoxProps = {
+  isUploaded: boolean;
+};
+
 const subtitleModifiers = {
   subtitle1: (theme: DefaultTheme) => css`
     font-size: ${theme.font.sizes.medium};
@@ -13,6 +17,15 @@ const subtitleModifiers = {
     font-size: ${theme.font.sizes.small};
     color: ${theme.colors.text2};
     margin-bottom: 1.875rem;
+  `,
+};
+
+const imageBoxBorderModifiers = {
+  default: (theme: DefaultTheme) => css`
+    border-radius: 12px;
+    border: 1px dashed #97bef4;
+
+    background-color: ${theme.colors.secondary};
   `,
 };
 
@@ -60,15 +73,12 @@ export const Legend = styled.span`
   `}
 `;
 
-export const ImageBox = styled.div`
-  ${({ theme }) => css`
-    width: 340px;
-    height: 220px;
+export const ImageBox = styled.div<ImageBoxProps>`
+  ${({ theme, isUploaded }) => css`
+    width: 21.25rem;
+    height: 13.75rem;
 
-    background-color: ${theme.colors.secondary};
-
-    border-radius: 12px;
-    border: 1px dashed #97bef4;
+    ${!isUploaded && imageBoxBorderModifiers.default(theme)}
 
     margin-bottom: 1.188rem;
 
@@ -80,24 +90,9 @@ export const ImageBox = styled.div`
   `}
 `;
 
-export const NoImage = styled.img`
-  max-height: 115px;
-  max-width: 88px;
+export const UploadedImage = styled.img`
+  max-width: 21.25rem;
+  max-height: 13.75rem;
 
-  margin-top: 2.188rem;
-`;
-
-export const Button = styled.button`
-  ${({ theme }) => css`
-    padding: 8px 16px;
-
-    background-color: ${theme.colors.primary};
-
-    border-radius: 8px;
-    border: none;
-
-    color: ${theme.colors.boxBg};
-
-    margin: 1.375rem 0 2.25rem;
-  `}
+  border-radius: 12px;
 `;

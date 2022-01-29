@@ -13,7 +13,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ${({ theme }) => css`
-    body {
+    body,
+    input {
       font: 16px 'Poppins', sans-serif;
       background-color: ${theme.colors.mainBg};
     }
