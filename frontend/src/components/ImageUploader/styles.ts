@@ -96,3 +96,7 @@ export const UploadedImage = styled.img`
 
   border-radius: 12px;
 `;
+
+export const FileInput = styled.input`
+  display: none;
+`;

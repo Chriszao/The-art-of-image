@@ -2,8 +2,8 @@ import image from 'assets/test.jpg';
 import Button from 'components/Button';
 import DragNDrop from 'components/DragNDrop';
 import SuccessHeader from 'components/SuccesHeader';
-import useSnackBar from 'hooks/useSnackBar';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import validTypes from '../../constants';
 import SuccessFooter from '../SuccessFooter';
@@ -15,13 +15,23 @@ import {
   Wrapper,
   Legend,
   UploadedImage,
+  FileInput,
 } from './styles';
 
-const ImageUploader = () => {
-  const [uploaded, setUpladed] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const snackBar = useSnackBar();
+type ImageUploaderProps = {
+  handleLoading: () => void;
+};
+
+const ImageUploader = ({ handleLoading }: ImageUploaderProps) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploaded, setUploaded] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File>();
+
+  const notify = (message: string) => toast(message, { type: 'error' });
+
+  const fileInputClicked = () => {
+    fileInputRef?.current?.click();
+  };
 
   const dragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -43,15 +53,18 @@ const ImageUploader = () => {
   };
 
   const handleFiles = (files: FileList) => {
-    for (let index = 0; index < files.length; index += 1) {
-      if (validateFile(files[index])) {
-        setSelectedFiles(prev => [...prev, files[index]]);
-      }
-      snackBar(
-        `Tipo de arquivo não permitido: ${files[index].name}.${files[index].type}`,
-      );
-      // mostrar snackBar com erro na tela e o nome do arquivo
+    if (files.length > 1) {
+      notify('Envie apenas um arquivo por vez!');
+      return;
     }
+
+    if (validateFile(files[0])) {
+      setSelectedFile(files[0]);
+      handleLoading();
+      return;
+    }
+
+    notify(`Tipo de arquivo não permitido: ${files[0].name}`);
   };
 
   const fileDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -64,13 +77,23 @@ const ImageUploader = () => {
     }
   };
 
+  const filesSelected = () => {
+    if (fileInputRef?.current?.files?.length) {
+      handleFiles(fileInputRef.current.files);
+    }
+  };
+
   return (
     <Container>
-      <Wrapper>
-        <Title>Upload your image</Title>
-        <Subtitle variant="subtitle2">File should be Jpeg, Png...</Subtitle>
-      </Wrapper>
-      {/* <SuccessHeader /> */}
+      {uploaded ? (
+        <SuccessHeader />
+      ) : (
+        <Wrapper>
+          <Title>Upload your image</Title>
+          <Subtitle variant="subtitle2">File should be Jpeg, Png...</Subtitle>
+        </Wrapper>
+      )}
+
       <ImageBox
         onDragOver={dragOver}
         onDragEnter={dragEnter}
@@ -82,14 +105,28 @@ const ImageUploader = () => {
           <UploadedImage src={image} alt="Test" />
         ) : (
           <>
+            <FileInput
+              ref={fileInputRef}
+              type="file"
+              multiple={false}
+              onChange={filesSelected}
+            />
             <DragNDrop />
             <Legend>Drag & drop your image here</Legend>
           </>
         )}
       </ImageBox>
-      <Subtitle variant="subtitle1">Or</Subtitle>
-      <Button withMargin>Choose a file</Button>
-      {/* <SuccessFooter /> */}
+      {uploaded ? (
+        <SuccessFooter />
+      ) : (
+        <>
+          <Subtitle variant="subtitle1">Or</Subtitle>
+
+          <Button onClick={fileInputClicked} withMargin>
+            Escolha um arquivo
+          </Button>
+        </>
+      )}
     </Container>
   );
 };
