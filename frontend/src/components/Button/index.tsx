@@ -1,12 +1,16 @@
 import { ButtonComponent } from './styles';
 
-type ButtonProps = {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   withMargin: boolean;
-};
+}
 
-const Button = ({ children, withMargin = true }: ButtonProps) => {
-  return <ButtonComponent withMargin={withMargin}>{children}</ButtonComponent>;
+const Button = ({ children, withMargin = true, onClick }: ButtonProps) => {
+  return (
+    <ButtonComponent onClick={onClick} withMargin={withMargin}>
+      {children}
+    </ButtonComponent>
+  );
 };
 
 export default Button;
