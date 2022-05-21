@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": [
+      "es2017",
+      "DOM"
+    ],
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "outDir": "./functions/__compiled__",
+    "strict": false,
+    "target": "ES2017",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "./functions/typescript/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
