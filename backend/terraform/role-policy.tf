@@ -18,4 +18,13 @@ resource "aws_iam_role_policy_attachment" "lambda_attachment_cloud_watch" {
 
 # =================================================================
 
+# ---AppsyncRole x AppSyncInvokeLambdaPolicy---
+
+resource "aws_iam_role_policy_attachment" "appsync_invoke_lambda" {
+  role       = aws_iam_role.appsync_role.name
+  policy_arn = aws_iam_policy.cloud_watch_policy.arn
+}
+
+# =================================================================
+
 

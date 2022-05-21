@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "image_attachment_bucket" {
-  bucket = "${var.app}-images-${var.stage}"
+  bucket = "${var.app}-images"
 
 }
 
