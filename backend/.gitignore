@@ -1,0 +1,7 @@
+node_modules
+.terraform
+terraform.tfstate.backup
+__compiled__
+__zip__
+.terraform.lock.hcl
+terraform.tfstate
