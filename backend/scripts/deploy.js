@@ -4,5 +4,5 @@ execute(
 	`sh build.sh && 
   echo Deploying to terraform... && 
   cd terraform && terraform apply && 
-  terraform`
+  terraform output -json > ../../frontend/src/api.json`
 );
