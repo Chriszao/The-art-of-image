@@ -1,0 +1,22 @@
+schema {
+  mutation: Mutation
+  query: Query
+}
+
+type AttachmentPayload {
+  putUrl: String
+  getUrl: String
+}
+
+input UploadImageInput {
+  contentType: String!
+  fileName: String!
+}
+
+type Mutation {
+  uploadImage(input: UploadImageInput): AttachmentPayload
+}
+
+type Query {
+  hello: String
+}
