@@ -1,0 +1,12 @@
+{
+  "name": "s3FileUpload",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "aws-lambda": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.97"
+  }
+}
